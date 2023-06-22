@@ -1,0 +1,188 @@
+using System.Drawing;
+
+internal class Program
+{
+
+
+
+    static double[] gastosMotores = new double[15];
+
+
+
+
+
+    static void lancargastos()
+    {
+        int qualMotor;
+        double valor;
+
+        Console.Clear();
+        Console.WriteLine("Lançar Gastos: ");
+
+        do
+        {
+            Console.Write("Digite o número do motor: ");
+            qualMotor = int.Parse(Console.ReadLine());
+        }
+        while (qualMotor < 1 || qualMotor > 15);
+
+
+        do
+        {
+
+            Console.Write("Digite o valor do gasto: ");
+            valor = double.Parse(Console.ReadLine());
+
+
+            if (valor >= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Gasto lançado com sucesso!");
+
+
+                gastosMotores[qualMotor - 1] += valor;
+
+            }
+
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Valor inválido. Digite novamente: ");
+            }
+        } while (valor <= 0);
+
+    }
+
+
+
+
+
+    static void mostrargastos()
+    {
+        Console.Clear();
+        Console.WriteLine("Gastos:");
+
+        double totalGastos = 0;
+
+        for (int i = 0; i < 15; i++)
+        {
+            Console.WriteLine($"Motor {i + 1}: R$ {gastosMotores[i]}");
+            totalGastos += gastosMotores[i];
+        }
+
+        Console.WriteLine($"Valor total Gasto: R$ {totalGastos}");
+    }
+
+
+
+
+
+
+
+    static void motorquemaisgastou()
+    {
+        Console.Clear();
+        Console.WriteLine(" Motor com maior gasto: ");
+
+
+        double maiorGasto = gastosMotores[0];
+        int motorMaisGastou = 0;
+
+        for (int i = 1; i < 15; i++)
+        {
+            if (gastosMotores[i] > maiorGasto)
+            {
+                maiorGasto = gastosMotores[i];
+                motorMaisGastou = i;
+            }
+        }
+
+        if (maiorGasto > 0)
+
+            Console.WriteLine($"Motor que mais gastou: {motorMaisGastou + 1} (R$ {maiorGasto})");
+
+        else Console.WriteLine("Não houve gastos");
+
+
+
+
+    }
+
+
+static bool ValidarOpcao(string opcao)
+
+    {
+
+        return opcao == "0" || opcao == "1" || opcao == "2" || opcao == "3";
+
+    }
+
+    //menu principal 
+
+    private static void Main(string[] args)
+
+    {
+
+        bool sair = false;
+
+        string opcao;
+
+        do
+
+        {
+
+            Console.WriteLine("Escolha a opção a baixo");
+
+            Console.WriteLine("- 0 Sair");
+
+            Console.WriteLine("- 1 Lançar gasto");
+
+            Console.WriteLine("- 2 mostrar gastos");
+
+            Console.WriteLine("- 3 Motor que mais gastou");
+
+            do
+
+            {
+
+                opcao = Console.ReadLine();
+
+            } while (!ValidarOpcao(opcao));
+
+            if (opcao == "0")
+
+            {
+
+                sair = true;
+
+            }
+
+            if (opcao == "1")
+
+            {
+
+                lancargastos();
+
+            }
+
+            if (opcao == "2")
+
+            {
+
+                mostrargastos();
+
+            }
+
+            if (opcao == "3")
+
+            {
+
+                motorquemaisgastou();
+
+            }
+
+            Console.WriteLine();
+
+        } while (!sair);
+
+    }    
